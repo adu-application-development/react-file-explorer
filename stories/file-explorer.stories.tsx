@@ -3,8 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import styled from 'styled-components';
 import { VscFolder, VscFolderOpened, VscFile } from 'react-icons/vsc';
 
-import FileExplorer, { Entry, EntryProvider, EventProvider } from '../src';
 import { dark, GlobalStyle, light } from '@helloblank/theme';
+import { Entry, FileExplorer, FileSystemProvider } from '../src';
 
 const meta: Meta = {
   title: 'file-explorer',
@@ -99,18 +99,17 @@ export const Default = () => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <EntryProvider entries={entries}>
-        <EventProvider
-          onMove={(to, from) => {
-            console.log('move to', to, 'from', from);
-          }}
-          onSelect={(to) => {
-            console.log(to, 'is selected');
-          }}
-        >
-          <FileExplorer />
-        </EventProvider>
-      </EntryProvider>
+      <FileSystemProvider
+        entries={entries}
+        onMove={(to, from) => {
+          console.log('move to', to, 'from', from);
+        }}
+        onSelect={(to) => {
+          console.log(to, 'is selected');
+        }}
+      >
+        <FileExplorer />
+      </FileSystemProvider>
     </Wrapper>
   );
 };

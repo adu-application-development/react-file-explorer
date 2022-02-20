@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useDrag, useDrop, useSelect } from '../../event-provider';
-import Entry from '../../interfaces/entry';
+import { Entry } from '../..';
+import { useDrag, useDrop, useSelect } from '../filesystem-provider';
 
 export interface Props {
   entry: Entry;
@@ -9,8 +9,8 @@ export interface Props {
 export default function FileEntry(props: Props) {
   const entry = props.entry;
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [dragState, setDragState] = useDrag();
-  const [_dropState, setDropState] = useDrop();
+  const [_dragState, setDragState] = useDrag();
+  const [_dropState, _setDropState] = useDrop();
   const [selectState, setSelectState] = useSelect();
 
   const onWrapperHandler = () => ({

@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import FolderEntry from './components/folder-entry';
-import { getHeadEntry } from './entry-provider';
-import { useSelect } from './event-provider';
-import Entry from './interfaces/entry';
+import FolderEntry from '../folder-entry';
+import { getHeadEntry, useSelect } from '../filesystem-provider';
+import { Entry } from '../..';
 
 interface Props {
   onChange?: (event: string, entries: Entry[]) => void;
 }
-export default function FileExplorer(props: Props) {
+export function FileExplorer(props: Props) {
   const [selectState, setSelectState] = useSelect();
 
+  useEffect(() => {}, [props]);
   const onWrapperHandler = () => ({
     onClick: (event: React.MouseEvent<HTMLDivElement>) => {
       setSelectState(undefined);

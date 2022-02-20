@@ -1,4 +1,4 @@
-export default interface Entry {
+export interface Entry {
   path: string;
   name: string;
   detail?: any;

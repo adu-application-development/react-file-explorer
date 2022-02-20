@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Entry from '../../interfaces/entry';
+import { Entry } from '../..';
 import FileEntry from '../file-entry';
-import { getSubEntries } from '../../entry-provider';
-import { useDrag, useDrop, useSelect } from '../../event-provider';
+import {
+  getSubEntries,
+  useDrag,
+  useDrop,
+  useSelect,
+} from '../filesystem-provider';
 
 export interface Props {
   entry: Entry;
@@ -27,19 +31,9 @@ export default function FolderEntry(props: Props) {
       _event.stopPropagation();
       hideGuide();
 
-      if (!dragState) return;
-      const event = dragState.event;
-      const draggedEntry = dragState.current;
-      const isSubEntry =
-        subEntries.find((entry) => entry.path === draggedEntry.path) !==
-        undefined;
-      const isMine = draggedEntry.path === entry.path;
-      const isParent = entry.path.startsWith(dragState.current.path);
-      if (isSubEntry) return;
-      if (isMine) return;
-      if (isParent) return;
-
-      setDropState({ to: draggedEntry, from: entry });
+      if (isMovable()) {
+        setDropState({ to: draggedEntry, from: entry });
+      }
     },
     onDragOver: (event: React.DragEvent<HTMLDivElement>) => {
       event.stopPropagation();
@@ -86,6 +80,16 @@ export default function FolderEntry(props: Props) {
     return left < x && x < right && top < y && y < bottom;
   };
 
+  const isMovable = (draggedEntry: Entry, currentEntry: Entry): boolean => {
+    const isSubEntry =
+      subEntries.find((entry) => entry.path === draggedEntry.path) !==
+      undefined;
+    const isMine = draggedEntry.path === currentEntry.path;
+    const isParent = currentEntry.path.startsWith(draggedEntry.path);
+    
+    return !isSubEntry && !isMine && !isParent;
+  };
+
   useEffect(() => {
     // console.log(State.onDrag, 'in', entry.name);
     if (!dragState) return;
@@ -114,6 +118,7 @@ export default function FolderEntry(props: Props) {
       headerRef.current?.classList.remove('select');
     }
   }, [selectState]);
+
   return (
     <Wrapper ref={wrapperRef}>
       <Header className="header" ref={headerRef} {...onHeaderHandler()}>

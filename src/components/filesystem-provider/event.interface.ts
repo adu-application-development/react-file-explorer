@@ -1,4 +1,4 @@
-import Entry from './entry';
+import { Entry } from "../..";
 
 export interface DragState {
   event: React.DragEvent<HTMLDivElement>;
