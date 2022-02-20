@@ -11,7 +11,16 @@ export interface DropState {
 export interface SelectState {
   to: Entry;
 }
-
+export interface RenameState {
+  to: Entry;
+  from: Entry;
+}
+export interface DeleteState {
+  to: Entry;
+}
+export interface CreateState {
+  to: Entry;
+}
 export default interface Event {
   drag: [
     DragState | undefined,
@@ -25,4 +34,16 @@ export default interface Event {
     SelectState | undefined,
     React.Dispatch<React.SetStateAction<SelectState | undefined>>
   ];
+  rename: [
+    RenameState | undefined,
+    React.Dispatch<React.SetStateAction<RenameState | undefined>>
+  ];
+  delete: [
+    DeleteState | undefined,
+    React.Dispatch<React.SetStateAction<DeleteState | undefined>>
+  ];
+  create: [
+    CreateState | undefined,
+    React.Dispatch<React.SetStateAction<CreateState | undefined>>
+  ]
 }
