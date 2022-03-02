@@ -71,8 +71,10 @@
   },
   "dependencies": {
     "@helloblank/theme": "^0.1.1",
+    "@types/prop-types": "^15.7.4",
     "@types/react-icons": "^3.0.0",
     "@types/styled-components": "^5.1.22",
+    "prop-types": "^15.8.1",
     "react-icons": "^4.3.1",
     "styled-components": "^5.3.3"
   }
